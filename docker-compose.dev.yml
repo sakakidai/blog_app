@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      MYSQL_USERNAME: blog_dev_user
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: mysql
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/blog_app
+      - blog_app_bundle:/blog_app/vendor/bundle
+      - blog_app_node_modules:/blog_app/node_modules
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  blog_app_bundle:
+    driver: local
+  blog_app_node_modules:
+    driver: local
+  mysql-data:
+    driver: local
