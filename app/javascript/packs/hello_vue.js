@@ -6,16 +6,14 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../app.vue'
+import App from '../components/app.vue'
 
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    render: h => h(App)
-  }).$mount()
-  document.body.appendChild(app.$el)
 
-  console.log(app)
+new Vue({
+  el: '#hello',
+  render: h => h(App)
 })
+
 
 
 // The above code uses Vue without the compiler, which means you cannot
