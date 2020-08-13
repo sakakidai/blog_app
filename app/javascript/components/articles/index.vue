@@ -1,40 +1,31 @@
 <template>
-  <div>
+  <b-container>
     <p>記事一覧</p>
     <div>
-      <div v-for="(article, key) in articles" :key="key">
+      <div v-for="article in articles" :key=article.id>
         <p>{{article.title}}</p>
         <p>{{article.content}}</p>
+        <br>
       </div>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  data: function() {
+  data() {
     return {
-      articles: [
-        {
-          title: 'サンプル１',
-          content: 'aaaaaaaaaaaaaaaaaaaaaaa',
-          created_at: '2020-08-13',
-          updated_at: '2020-08-14'
-        },
-        {
-          title: 'サンプル2',
-          content: 'bbbbbbbbbbbbbbbbbbbbbbbb',
-          created_at: '2020-08-13',
-          updated_at: '2020-08-14'
-        },
-        {
-          title: 'サンプル3',
-          content: 'cccccccccccccccccccccccc',
-          created_at: '2020-08-13',
-          updated_at: '2020-08-14'
-        },
-      ]
+      articles: []
     }
+  },
+  created() {
+    axios
+      .get('/api/v1/articles')
+      .then(response => {
+        this.articles = response.data.articles
+      })
   }
 }
 </script>
