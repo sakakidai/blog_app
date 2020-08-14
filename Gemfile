@@ -41,6 +41,13 @@ group :development do
   # useful error view
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  # add comment summarizing the current schema
+  gem 'annotate'
+
+  # Code static code analyzer
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
