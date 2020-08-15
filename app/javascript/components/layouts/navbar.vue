@@ -7,12 +7,25 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
-          <b-nav-item href="#">Disabled</b-nav-item>
+          <b-nav-item href="/articles">記事一覧</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
+          <b-nav-item>
+            <b-button v-b-modal.new_article_modal size="sm">新規作成</b-button>
+
+            <b-modal id="new_article_modal" title="新規作成" hide-footer>
+              <label for="title">タイトル:</label>
+              <input id="title" type="text" v-model="article.title">
+              <br>
+              <label for="content">内容</label>
+              <textarea id="content" v-model="article.content"></textarea>
+              <b-button class="mt-3" block @click="createArticle">送信</b-button>
+              <b-button class="mt-3" block @click="$bvModal.hide('new_article_modal')">閉じる</b-button>
+            </b-modal>
+          </b-nav-item>
+
           <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
@@ -38,3 +51,41 @@
     </b-navbar>
   </div>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      article: {
+        title: '',
+        content: '',
+      }
+    }
+  },
+  methods: {
+    createArticle() {
+      axios
+        .post(
+          '/api/v1/articles',
+          {
+            article: {
+              title: this.article.title,
+              content: this.article.content
+            },
+            authenticity_token: document.getElementsByName('csrf-token')[0].content,
+          },
+        )
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+      this.title = ''
+      this.content = ''
+    }
+  }
+}
+</script>
