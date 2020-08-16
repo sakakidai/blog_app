@@ -9,4 +9,8 @@
 #  updated_at :datetime         not null
 #
 class Article < ApplicationRecord
+  # Validations
+  validates :title, presence: true
+  validates :title, length: { maximum: 30 }, if: -> { self.title.present? }
+  validates :content, presence: true
 end

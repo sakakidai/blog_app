@@ -13,7 +13,7 @@ module Api
         if @article.save
           render json: @article, status: :created
         else
-          render json: @task.errors, status: :unprocessable_entity
+          render json: @article.errors, status: :unprocessable_entity
         end
       end
 
