@@ -11,7 +11,7 @@ module Api
         @article = Article.new(article_params)
 
         if @article.save
-          render :index, status: :created
+          render json: @article, status: :created
         else
           render json: @task.errors, status: :unprocessable_entity
         end

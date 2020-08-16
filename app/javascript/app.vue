@@ -1,3 +1,5 @@
+<!--TODO: vueのapplication.jsをどう使うか定まってない-->
+<!--
 <template>
   <Navbar></Navbar>
 </template>
@@ -11,3 +13,4 @@ export default {
   }
 }
 </script>
+-->
