@@ -1,7 +1,10 @@
-<!--TODO: vueのapplication.jsをどう使うか定まってない-->
-<!--
 <template>
-  <Navbar></Navbar>
+  <div>
+    <Navbar></Navbar>
+    <b-container>
+      <router-view></router-view>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -13,4 +16,3 @@ export default {
   }
 }
 </script>
--->
