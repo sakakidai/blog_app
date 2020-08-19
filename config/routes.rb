@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   end
 
   root 'articles#index'
-  # TODO: 後で修正
-  get '*path', to: redirect('/')
+  get 'articles/:id', to: 'articles#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

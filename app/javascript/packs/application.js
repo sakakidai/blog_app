@@ -14,7 +14,9 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import App from '../app.vue'
 import router from './router'
+import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost:3000'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
