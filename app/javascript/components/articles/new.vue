@@ -1,5 +1,12 @@
 <template>
   <div>
+    new
+  </div>
+</template>
+
+<!--
+<template>
+  <div>
     <b-alert
       v-model="showDismissibleAlert"
       :variant="message.type"
@@ -101,3 +108,4 @@ export default {
   }
 }
 </script>
+-->

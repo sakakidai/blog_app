@@ -8,18 +8,11 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/">記事一覧</b-nav-item>
+          <b-nav-item to="/articles/new">新規作成</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item>
-            <b-button v-b-modal.new_article_modal size="sm">新規作成</b-button>
-
-            <b-modal id="new_article_modal" title="新規作成" hide-footer>
-              <NewForm @create-article="createArticle"></NewForm>
-            </b-modal>
-          </b-nav-item>
-
           <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
@@ -47,24 +40,7 @@
 </template>
 
 <script>
-import NewForm from '../articles/new.vue'
-
 export default {
-  components: {
-    NewForm
-  },
-  data() {
-    return {
-      article: {
-        title: '',
-        content: '',
-      }
-    }
-  },
-  methods: {
-    createArticle(article) {
-      this.$emit("create-article", article)
-    }
-  }
+
 }
 </script>
