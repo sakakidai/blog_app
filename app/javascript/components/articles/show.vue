@@ -15,7 +15,7 @@
 
           <b-card-text class="small text-muted">
             Last updated 3 mins ago
-            <b-link :to="'/articles/' + article.id + '/edit'">編集</b-link>
+            <b-link :to="'/articles/' + this.$route.params.id + '/edit'">編集</b-link>
           </b-card-text>
         </b-card-body>
       </b-col>

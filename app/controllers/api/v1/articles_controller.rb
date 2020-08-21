@@ -21,6 +21,17 @@ module Api
         end
       end
 
+      def update
+        @article = Article.find(params[:id])
+        @article.attributes = article_params
+
+        if @article.save
+          render json: @article
+        else
+          render json: @article.errors, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def article_params

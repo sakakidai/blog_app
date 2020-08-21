@@ -1,18 +1,6 @@
 <template>
   <div>
-    new
-  </div>
-</template>
-
-<!--
-<template>
-  <div>
-    <b-alert
-      v-model="showDismissibleAlert"
-      :variant="message.type"
-      dismissible
-    >{{ message.content }}</b-alert>
-
+    <div>新規作成</div>
     <b-form-group>
       <label for="article_title">タイトル:</label>
       <b-form-input
@@ -93,7 +81,6 @@ export default {
         .then(response => {
           this.message.type = 'success'
           this.message.content = '作成しました'
-          this.$emit("create-article", response.data)
           this.article.title = ''
           this.article.content = ''
         })
@@ -103,9 +90,9 @@ export default {
           this.message.content = 'エラーがあります'
         })
 
-      this.showDismissibleAlert = true
+      this.$emit("createFlashMessage", this.message)
     }
   }
 }
 </script>
--->
+
