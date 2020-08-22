@@ -2,7 +2,6 @@ module Api
   module V1
     class ArticlesController < ApplicationController
 
-      # GET /articles
       def index
         @articles = Article.order(id: :desc)
       end
@@ -30,6 +29,12 @@ module Api
         else
           render json: @article.errors, status: :unprocessable_entity
         end
+      end
+
+      def destroy
+        @article = Article.find(params[:id])
+        @article.destroy
+        render json: @article
       end
 
       private

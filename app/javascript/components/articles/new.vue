@@ -62,7 +62,6 @@ export default {
         type: '',
         content: '',
       },
-      showDismissibleAlert: false
     }
   },
   methods: {
