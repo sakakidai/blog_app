@@ -1,11 +1,5 @@
 <template>
   <div>
-    <b-alert
-      v-model="showDismissibleAlert"
-      :variant="message.type"
-      dismissible
-    >{{ message.content }}</b-alert>
-
     <div>編集</div>
     <b-form-group>
       <label for="article_title">タイトル:</label>
@@ -64,7 +58,7 @@ export default {
         title: '',
         content: '',
       },
-      message: {
+      flashMessage: {
         type: '',
         content: '',
       },
@@ -93,17 +87,20 @@ export default {
           },
         )
         .then(response => {
-          this.message.type = 'success'
-          this.message.content = '編集しました'
-          this.$router.push('/articles/' + this.$route.params.id)
+          this.flashMessage.type = 'success'
+          this.flashMessage.content = '編集しました'
         })
         .catch(error => {
           console.log(error.response.data)
-          this.message.type = 'danger'
-          this.message.content = 'エラーがあります'
+          this.flashMessage.type = 'danger'
+          this.flashMessage.content = 'エラーがあります'
         })
-
-      this.showDismissibleAlert = true
+        .finally(() => {
+          this.$emit("createFlashMessage", this.flashMessage)
+          if (this.flashMessage.type === 'success') {
+            this.$router.push('/articles/' + this.$route.params.id)
+          }
+        })
     }
   }
 }

@@ -58,7 +58,7 @@ export default {
         title: '',
         content: '',
       },
-      message: {
+      flashMessage: {
         type: '',
         content: '',
       },
@@ -79,18 +79,19 @@ export default {
           },
         )
         .then(response => {
-          this.message.type = 'success'
-          this.message.content = '作成しました'
+          this.flashMessage.type = 'success'
+          this.flashMessage.content = '作成しました'
           this.article.title = ''
           this.article.content = ''
         })
         .catch(error => {
           console.log(error.response.data)
-          this.message.type = 'danger'
-          this.message.content = 'エラーがあります'
+          this.flashMessage.type = 'danger'
+          this.flashMessage.content = 'エラーがあります'
         })
-
-      this.$emit("createFlashMessage", this.message)
+        .finally(() => {
+          this.$emit("createFlashMessage", this.flashMessage)
+        })
     }
   }
 }

@@ -2,7 +2,11 @@
   <div>
     <Navbar></Navbar>
     <b-container fluid = "sm" class="bv-example-row">
-      <!-- <FlashMessage :flashMessage="createFlashMessage"></FlashMessage> -->
+      <FlashMessage
+        ref="child"
+        :type="flashMessage.type"
+        :content="flashMessage.content"
+      ></FlashMessage>
       <b-row>
         <b-col md="9">
           <router-view @createFlashMessage="createFlashMessage"></router-view>
@@ -16,7 +20,7 @@
 
 <script>
 import Navbar from './components/layouts/navbar.vue'
-// import FlashMessage from './components/layouts/flash-message.vue'
+import FlashMessage from './components/layouts/flash-message.vue'
 
 export default {
   components: {
@@ -25,7 +29,7 @@ export default {
   },
   data() {
     return {
-      message: {
+      flashMessage: {
         type: '',
         content: '',
       },
@@ -33,8 +37,9 @@ export default {
   },
   methods: {
     createFlashMessage(response) {
-      console.log(response)
-      response
+      this.flashMessage.type    = response.type
+      this.flashMessage.content = response.content
+      this.$refs.child.showAlert()
     }
   }
 }
