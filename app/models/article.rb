@@ -9,6 +9,10 @@
 #  updated_at :datetime         not null
 #
 class Article < ApplicationRecord
+  include ActiveStorageSupport::SupportForBase64
+  #Uploader
+  has_one_base64_attached :thumbnail
+
   # Validations
   validates :title, presence: true
   validates :title, length: { maximum: 30 }, if: -> { self.title.present? }

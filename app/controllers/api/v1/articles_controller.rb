@@ -42,7 +42,8 @@ module Api
       def article_params
         params.fetch(:article, {}).permit(
           :title,
-          :content
+          :content,
+          thumbnail: :data
         )
       end
     end

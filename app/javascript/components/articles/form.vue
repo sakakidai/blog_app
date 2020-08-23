@@ -1,5 +1,21 @@
 <template>
   <div>
+    <b-img
+      v-show="article.thumbnail"
+      class="preview-item-file"
+      :src="article.thumbnail"
+      fluid
+      alt=""
+    ></b-img>
+
+    <b-form-group>
+      <label for="article_thumbnail">サムネイル:</label>
+      <b-form-file
+        id="article_thumbnail"
+        @change="uploadFile"
+      ></b-form-file>
+    </b-form-group>
+
     <b-form-group>
       <label for="article_title">タイトル:</label>
       <b-form-input
@@ -61,7 +77,16 @@ export default {
   methods: {
     sendData() {
       this.$emit('send-data')
-    }
+    },
+    uploadFile(e) {
+      console.log('Upload')
+      const file   = e.target.files[0]
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.article.thumbnail = e.target.result
+      };
+      reader.readAsDataURL(file)
+    },
   }
 }
 </script>

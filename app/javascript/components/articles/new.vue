@@ -21,6 +21,7 @@ export default {
       article: {
         title: '',
         content: '',
+        thumbnail: null,
       },
       flashMessage: {
         type: '',
@@ -37,6 +38,7 @@ export default {
             article: {
               title: this.article.title,
               content: this.article.content,
+              thumbnail: { data: this.article.thumbnail },
             },
             authenticity_token: document.getElementsByName('csrf-token')[0].content,
           },
