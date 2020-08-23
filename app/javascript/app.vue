@@ -4,8 +4,7 @@
     <b-container fluid = "sm" class="bv-example-row">
       <FlashMessage
         ref="child"
-        :type="flashMessage.type"
-        :content="flashMessage.content"
+        :flashMessage="flashMessage"
       ></FlashMessage>
       <b-row>
         <b-col md="9">

@@ -43,8 +43,8 @@
 export default {
   props: {
     article: {
-      title: { type: String, required: true },
-      content: { type: Text, required: true },
+      type: Object,
+      required: true,
     },
   },
   computed: {

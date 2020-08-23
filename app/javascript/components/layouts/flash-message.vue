@@ -3,17 +3,18 @@
   <div>
     <b-alert
       v-model="showDismissibleAlert"
-      :variant="type"
+      :variant="flashMessage.type"
       dismissible
-    >{{ content }}</b-alert>
+    >{{ flashMessage.content }}</b-alert>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    type: String,
-    content: String,
+    flashMessage: {
+      type: Object
+    },
   },
   data() {
     return {
