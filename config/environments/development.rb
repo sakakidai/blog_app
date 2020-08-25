@@ -63,3 +63,6 @@ Rails.application.configure do
   # better errors
   BetterErrors::Middleware.allow_ip! '0.0.0.0/0'
 end
+
+# set default url
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'

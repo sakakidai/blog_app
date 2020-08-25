@@ -4,7 +4,10 @@
       <b-card no-body class="overflow-hidden">
         <b-row no-gutters>
           <b-col cols="5">
-            <b-card-img src="https://placekitten.com/320/180" alt="Image" class="rounded-0"></b-card-img>
+            <b-card-img
+              :src="article.thumbnail || 'https://placekitten.com/320/180'"
+              alt="Thumbnail"
+            ></b-card-img>
           </b-col>
           <b-col cols="7">
             <b-card-body>

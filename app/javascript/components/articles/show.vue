@@ -1,16 +1,11 @@
 <template>
   <b-card no-body class="overflow-hidden">
-    <b-img
-      v-show="article.thumbnail"
-      class="preview-item-file"
-      :src="article.thumbnail"
-      fluid
-      alt=""
-    ></b-img>
-
     <b-row no-gutters>
       <b-col cols="5">
-        <b-card-img src="https://placekitten.com/320/180" alt="Image" class="rounded-0"></b-card-img>
+        <b-card-img
+          :src="article.thumbnail"
+          alt="Thumbnail"
+        ></b-card-img>
       </b-col>
       <b-col cols="7">
         <b-card-body>
@@ -64,7 +59,7 @@ export default {
         this.article.id        = response.data.article.id
         this.article.title     = response.data.article.title
         this.article.content   = response.data.article.content
-        this.article.thumbnail = response.data.article.thumbnail
+        this.article.thumbnail = response.data.article.thumbnail || 'https://placekitten.com/320/180'
       })
   },
   methods: {
@@ -86,7 +81,7 @@ export default {
           this.$emit("createFlashMessage", this.flashMessage)
           this.$router.push('/')
         })
-    }
-  }
+    },
+  },
 }
 </script>
