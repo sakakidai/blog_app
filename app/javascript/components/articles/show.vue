@@ -3,6 +3,7 @@
     <b-row no-gutters>
       <b-col cols="5">
         <b-card-img
+          v-show="article.thumbnail"
           :src="article.thumbnail"
           alt="Thumbnail"
         ></b-card-img>
@@ -10,7 +11,7 @@
       <b-col cols="7">
         <b-card-body>
           <b-card-title>
-            <b-link :to="'/articles/' + article.id">{{ article.title }}</b-link>
+            <b-link :to="`/articles/${article.id}`">{{ article.title }}</b-link>
           </b-card-title>
           <b-card-text>
             <pre>{{article.content}}</pre>
@@ -46,6 +47,7 @@ export default {
         content: '',
         thumbnail: null,
       },
+      defoult_thumbnail: 'https://placekitten.com/320/180',
       flashMessage: {
         type: '',
         content: '',
@@ -59,7 +61,7 @@ export default {
         this.article.id        = response.data.article.id
         this.article.title     = response.data.article.title
         this.article.content   = response.data.article.content
-        this.article.thumbnail = response.data.article.thumbnail || 'https://placekitten.com/320/180'
+        this.article.thumbnail = response.data.article.thumbnail || this.defoult_thumbnail
       })
   },
   methods: {

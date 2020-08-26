@@ -22,6 +22,7 @@ export default {
         id: '',
         title: '',
         content: '',
+        thumbnail: null,
       },
       flashMessage: {
         type: '',
@@ -33,9 +34,10 @@ export default {
     axios
       .get(`/api/v1/articles/${this.$route.params.id}`)
       .then(response => {
-        this.article.id = response.data.article.id
-        this.article.title = response.data.article.title
-        this.article.content = response.data.article.content
+        this.article.id        = response.data.article.id
+        this.article.title     = response.data.article.title
+        this.article.content   = response.data.article.content
+        this.article.thumbnail = response.data.article.thumbnail
       })
   },
   methods: {
