@@ -21,7 +21,7 @@ export default {
       article: {
         title: '',
         content: '',
-        thumbnail: null,
+        thumbnail: '',
       },
       flashMessage: {
         type: '',

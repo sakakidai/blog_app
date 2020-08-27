@@ -45,7 +45,7 @@ export default {
         id: '',
         title: '',
         content: '',
-        thumbnail: null,
+        thumbnail: '',
       },
       defoult_thumbnail: 'https://placekitten.com/320/180',
       flashMessage: {

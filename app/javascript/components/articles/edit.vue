@@ -22,7 +22,7 @@ export default {
         id: '',
         title: '',
         content: '',
-        thumbnail: null,
+        thumbnail: '',
       },
       flashMessage: {
         type: '',

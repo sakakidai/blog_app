@@ -62,6 +62,9 @@ Rails.application.configure do
 
   # better errors
   BetterErrors::Middleware.allow_ip! '0.0.0.0/0'
+
+  # allow accessing from all IP
+  config.web_console.whitelisted_ips = '0.0.0.0/0'
 end
 
 # set default url
