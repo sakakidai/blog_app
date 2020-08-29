@@ -8,3 +8,4 @@ json.set! :articles do
     json.updated_at article.updated_at
   end
 end
+json.total_pages @articles.total_pages

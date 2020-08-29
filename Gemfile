@@ -26,6 +26,9 @@ gem 'jbuilder', '~> 2.7'
 # support for base64 attachments to ActiveStorage
 gem 'active_storage_base64'
 
+# pagination
+gem 'kaminari'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

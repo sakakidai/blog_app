@@ -12,6 +12,7 @@
           <b-col cols="7">
             <b-card-body>
               <b-card-title>
+                <span>{{ article.id }}</span>
                 <b-link :to="'/articles/' + article.id">{{ article.title }}</b-link>
               </b-card-title>
               <b-card-text>
@@ -35,6 +36,16 @@
         </b-row>
       </b-card>
     </div>
+
+    <div class="overflow-auto">
+      <b-pagination-nav
+        v-model="page.current"
+        :link-gen="linkGen"
+        :number-of-pages="page.total"
+        use-router
+        @input="changePage"
+      ></b-pagination-nav>
+    </div>
   </div>
 </template>
 
@@ -48,6 +59,10 @@ export default {
       flashMessage: {
         type: '',
         content: '',
+      },
+      page: {
+        current: 1,
+        total: 1,
       },
       defoult_thumbnail: 'https://placekitten.com/320/180',
     }
@@ -71,13 +86,32 @@ export default {
           this.$delete(this.articles, index)
           this.$emit("createFlashMessage", this.flashMessage)
         })
+    },
+
+    linkGen(pageNum) {
+      return `articles?page=${pageNum}`
+    },
+    changePage() {
+      axios
+        .get(
+          'api/v1/articles',
+          { params: { page: this.page.current } }
+        )
+        .then(response => {
+          this.articles   = response.data.articles
+          this.page.total = response.data.total_pages
+        })
     }
   },
   created() {
     axios
-      .get('/api/v1/articles')
+      .get(
+        '/api/v1/articles',
+        { params: {page: this.page.current } }
+      )
       .then(response => {
-        this.articles = response.data.articles
+        this.articles   = response.data.articles
+        this.page.total = response.data.total_pages
       })
   },
 }

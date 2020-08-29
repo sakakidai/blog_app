@@ -3,7 +3,7 @@ module Api
     class ArticlesController < ApplicationController
 
       def index
-        @articles = Article.with_attached_thumbnail.order(id: :desc)
+        @articles = Article.with_attached_thumbnail.order(id: :desc).page(params[:page]).per(10)
       end
 
       def show

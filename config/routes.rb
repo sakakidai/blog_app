@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
 
   root 'articles#index'
+  get 'articles', to: 'articles#index'
   get 'articles/:id', to: 'articles#index'
   get 'articles/new', to: 'artciels#index'
   get 'articles/:id/edit', to: 'articles#index'

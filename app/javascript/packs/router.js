@@ -11,6 +11,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {path: '/', component: ArticleIndex},
+    {path: '/articles', component: ArticleIndex},
     {path: '/articles/new', component: ArticleNew},
     {path: '/articles/:id', component: ArticleShow},
     {path: '/articles/:id/edit', component: ArticleEdit},
