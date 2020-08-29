@@ -21,7 +21,7 @@ export default {
       article: {
         id: '',
         title: '',
-        content: '',
+        description: '',
         thumbnail: '',
       },
       flashMessage: {
@@ -34,10 +34,10 @@ export default {
     axios
       .get(`/api/v1/articles/${this.$route.params.id}`)
       .then(response => {
-        this.article.id        = response.data.article.id
-        this.article.title     = response.data.article.title
-        this.article.content   = response.data.article.content
-        this.article.thumbnail = response.data.article.thumbnail
+        this.article.id          = response.data.article.id
+        this.article.title       = response.data.article.title
+        this.article.description = response.data.article.description
+        this.article.thumbnail   = response.data.article.thumbnail
       })
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
           {
             article: {
               title: this.article.title,
-              content: this.article.content,
+              description: this.article.description,
               thumbnail: { data: this.article.thumbnail },
             },
             authenticity_token: document.getElementsByName('csrf-token')[0].content,

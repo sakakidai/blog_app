@@ -22,7 +22,7 @@ module Api
 
       def update
         @article = Article.find(params[:id])
-        @article.attributes = article_params.slice(:title, :content)
+        @article.attributes = article_params.slice(:title, :description)
 
         unless @article.thumbnail_url == article_params[:thumbnail][:data]
           @article.thumbnail.attach(article_params[:thumbnail])
@@ -44,9 +44,9 @@ module Api
       private
 
       def article_params
-        params.fetch(:article, {}).permit(
+        params.require(:article).permit(
           :title,
-          :content,
+          :description,
           thumbnail: :data
         )
       end

@@ -16,7 +16,7 @@
                 <b-link :to="'/articles/' + article.id">{{ article.title }}</b-link>
               </b-card-title>
               <b-card-text>
-                <pre>{{article.content}}</pre>
+                <pre>{{article.description}}</pre>
               </b-card-text>
 
               <b-card-text class="small text-muted">

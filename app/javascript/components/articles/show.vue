@@ -44,7 +44,7 @@ export default {
       article: {
         id: '',
         title: '',
-        content: '',
+        description: '',
         thumbnail: '',
       },
       defoult_thumbnail: 'https://placekitten.com/320/180',
@@ -58,10 +58,10 @@ export default {
     axios
       .get('/api/v1/articles/' + this.$route.params.id)
       .then(response => {
-        this.article.id        = response.data.article.id
-        this.article.title     = response.data.article.title
-        this.article.content   = response.data.article.content
-        this.article.thumbnail = response.data.article.thumbnail || this.defoult_thumbnail
+        this.article.id          = response.data.article.id
+        this.article.title       = response.data.article.title
+        this.article.description = response.data.article.description
+      this.article.thumbnail     = response.data.article.thumbnail || this.defoult_thumbnail
       })
   },
   methods: {

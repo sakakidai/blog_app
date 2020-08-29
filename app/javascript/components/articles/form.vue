@@ -30,15 +30,15 @@
     </b-form-group>
 
     <b-form-group>
-      <label for="article_content">内容:</label>
+      <label for="article_description">内容:</label>
       <b-form-textarea
-        id="article_content"
-        v-model.trim="article.content"
-        :state="articleContentStatus"
+        id="article_description"
+        v-model.trim="article.description"
+        :state="articleDescriptionStatus"
         rows="5"
         max-rows="8"
       ></b-form-textarea>
-      <b-form-invalid-feedback id="article_content_feedback">
+      <b-form-invalid-feedback id="article_description_feedback">
         １文字以上入力してください。
       </b-form-invalid-feedback>
     </b-form-group>
@@ -67,11 +67,11 @@ export default {
     articleTitleStatus() {
       return 30 >= this.article.title.length && this.article.title.length > 0 ? true : false
     },
-    articleContentStatus() {
-      return this.article.content.length > 0 ? true : false
+    articleDescriptionStatus() {
+      return this.article.description.length > 0 ? true : false
     },
     submitStatus() {
-      return this.articleTitleStatus === true && this.articleContentStatus ? false :true
+      return this.articleTitleStatus === true && this.articleDescriptionStatus ? false :true
     }
   },
   methods: {

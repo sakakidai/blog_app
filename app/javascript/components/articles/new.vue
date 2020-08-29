@@ -20,7 +20,7 @@ export default {
     return {
       article: {
         title: '',
-        content: '',
+        description: '',
         thumbnail: '',
       },
       flashMessage: {
@@ -37,7 +37,7 @@ export default {
           {
             article: {
               title: this.article.title,
-              content: this.article.content,
+              description: this.article.description,
               thumbnail: { data: this.article.thumbnail },
             },
             authenticity_token: document.getElementsByName('csrf-token')[0].content,
@@ -47,7 +47,7 @@ export default {
           this.flashMessage.type = 'success'
           this.flashMessage.content = '作成しました'
           this.article.title = ''
-          this.article.content = ''
+          this.article.description = ''
         })
         .catch(error => {
           console.log(error.response.data)
