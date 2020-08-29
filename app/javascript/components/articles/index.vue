@@ -37,22 +37,23 @@
       </b-card>
     </div>
 
-    <div class="overflow-auto">
-      <b-pagination-nav
-        v-model="page.current"
-        :link-gen="linkGen"
-        :number-of-pages="page.total"
-        use-router
-        @input="changePage"
-      ></b-pagination-nav>
-    </div>
+    <Pagination
+      v-if="articles.length"
+      :page="page"
+      url='articles'
+      @changePage="changePage"
+    ></Pagination>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Pagination from '../layouts/pagination.vue'
 
 export default {
+  components: {
+    Pagination
+  },
   data() {
     return {
       articles: [],
@@ -87,10 +88,6 @@ export default {
           this.$emit("createFlashMessage", this.flashMessage)
         })
     },
-
-    linkGen(pageNum) {
-      return `articles?page=${pageNum}`
-    },
     changePage() {
       axios
         .get(
@@ -104,6 +101,8 @@ export default {
     }
   },
   created() {
+    this.page.current = this.$route.query.page
+
     axios
       .get(
         '/api/v1/articles',
