@@ -28,7 +28,7 @@
                   hide-footer
                   title="削除します本当によろしいですか？"
                 >
-                  <b-button class="mt-3" variant="outline-danger" block @click="destroyArticle(article.id, index)">削除</b-button>
+                  <b-button class="mt-3" variant="outline-danger" block @click="destroy(article.id, index)">削除</b-button>
                 </b-modal>
               </b-card-text>
             </b-card-body>
@@ -38,10 +38,9 @@
     </div>
 
     <Pagination
-      v-if="articles.length"
       :page="page"
       url='articles'
-      @changePage="changePage"
+      @changePage="fetchArticles"
     ></Pagination>
   </div>
 </template>
@@ -69,10 +68,7 @@ export default {
     }
   },
   methods: {
-    createArticle(article) {
-      this.articles.unshift(article)
-    },
-    destroyArticle(id, index) {
+    destroy(id, index) {
       axios
         .delete(
           '/api/v1/articles/' + id,
@@ -88,7 +84,7 @@ export default {
           this.$emit("createFlashMessage", this.flashMessage)
         })
     },
-    changePage() {
+    fetchArticles() {
       axios
         .get(
           'api/v1/articles',
@@ -101,17 +97,8 @@ export default {
     }
   },
   created() {
-    this.page.current = this.$route.query.page
-
-    axios
-      .get(
-        '/api/v1/articles',
-        { params: {page: this.page.current } }
-      )
-      .then(response => {
-        this.articles   = response.data.articles
-        this.page.total = response.data.total_pages
-      })
+    this.page.current = this.$route.query.page || 1
+    this.fetchArticles()
   },
 }
 </script>
