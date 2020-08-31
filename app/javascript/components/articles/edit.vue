@@ -3,7 +3,7 @@
     <div>編集</div>
     <ArticleForm
       :article="article"
-      @send-data="updateArticle"
+      @submit="update"
     ></ArticleForm>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       })
   },
   methods: {
-    updateArticle() {
+    update() {
       axios
         .put(
           `/api/v1/articles/${this.article.id}`,
@@ -55,13 +55,11 @@ export default {
           },
         )
         .then(response => {
-          this.flashMessage.type = 'success'
-          this.flashMessage.content = '編集しました'
+          this.flashMessage = { type: 'success', content: '編集しました' }
         })
         .catch(error => {
           console.log(error.response.data)
-          this.flashMessage.type = 'danger'
-          this.flashMessage.content = 'エラーがあります'
+          this.flashMessage = { type: 'danger', content: 'エラーがあります' }
         })
         .finally(() => {
           this.$emit("createFlashMessage", this.flashMessage)

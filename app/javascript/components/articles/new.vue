@@ -3,7 +3,7 @@
     <div>新規作成</div>
     <ArticleForm
       :article="article"
-      @send-data="createArticle"
+      @submit="create"
     ></ArticleForm>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    createArticle() {
+    create() {
       axios
         .post(
           '/api/v1/articles',
@@ -44,18 +44,17 @@ export default {
           },
         )
         .then(response => {
-          this.flashMessage.type = 'success'
-          this.flashMessage.content = '作成しました'
-          this.article.title = ''
-          this.article.description = ''
+          this.flashMessage = { type: 'success', content: '作成しました' }
         })
         .catch(error => {
           console.log(error.response.data)
-          this.flashMessage.type = 'danger'
-          this.flashMessage.content = 'エラーがあります'
+          this.flashMessage = { type: 'danger', content: 'エラーがあります' }
         })
         .finally(() => {
           this.$emit("createFlashMessage", this.flashMessage)
+          if (this.flashMessage.type === 'success') {
+            this.$router.push('/articles')
+          }
         })
     }
   }
