@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>トップコンテンツ</h3>
     <b-img
       v-show="article.thumbnail"
       class="preview-item-file"
@@ -46,6 +47,28 @@
           １文字以上入力してください。
         </b-form-invalid-feedback>
       </b-form-group>
+
+      <div v-for="(section, index) in article.sections" :key="index">
+        <h3>セクション{{ index + 1 }}</h3>
+        <b-form-group>
+          <label :for="`sections_attributes_${index}_title`">タイトル:</label>
+          <b-form-input
+            v-model.trim="section.title"
+            type="text"
+            :id="`sections_attributes_${index}_title`"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group>
+          <label :for="`sections_attributes_${index}_description`">内容:</label>
+          <b-form-textarea
+            v-model.trim="section.description"
+            rows="5"
+            max-rows="8"
+            :id="`sections_attributes_${index}_description`"
+          ></b-form-textarea>
+        </b-form-group>
+      </div>
 
       <b-button
         type="submit"

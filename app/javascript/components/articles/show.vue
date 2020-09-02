@@ -26,7 +26,7 @@
               hide-footer
               title="削除します本当によろしいですか？"
             >
-              <b-button class="mt-3" variant="outline-danger" block @click="destroyArticle(article.id)">削除</b-button>
+              <b-button class="mt-3" variant="outline-danger" block @click="destroy(article.id)">削除</b-button>
             </b-modal>
           </b-card-text>
         </b-card-body>
@@ -65,7 +65,7 @@ export default {
       })
   },
   methods: {
-    destroyArticle(id) {
+    destroy(id) {
       axios
         .delete(
           '/api/v1/articles/' + id,

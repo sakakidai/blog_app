@@ -17,6 +17,7 @@ class Article < ApplicationRecord
 
   # Relations
   has_many :sections
+  accepts_nested_attributes_for :sections, allow_destroy: true
 
   # Validations
   validates :title, presence: true

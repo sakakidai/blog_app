@@ -21,7 +21,14 @@ export default {
       article: {
         title: '',
         description: '',
-        thumbnail: '',
+        thumbnail: null,
+        sections: [
+          {
+            id: null,
+            title: '',
+            description: '',
+          }
+        ],
       },
       flashMessage: {
         type: '',
@@ -31,6 +38,7 @@ export default {
   },
   methods: {
     create() {
+      console.log(this.article.sections)
       axios
         .post(
           '/api/v1/articles',
@@ -39,6 +47,7 @@ export default {
               title: this.article.title,
               description: this.article.description,
               thumbnail: { data: this.article.thumbnail },
+              sections_attributes: this.article.sections
             },
             authenticity_token: document.getElementsByName('csrf-token')[0].content,
           },
