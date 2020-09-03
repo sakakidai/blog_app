@@ -2,9 +2,9 @@
   <div>
     <h3>トップコンテンツ</h3>
     <b-img
-      v-show="article.thumbnail"
+      v-show="article.thumbnail || article.thumbnailUrl"
       class="preview-item-file"
-      :src="article.thumbnail"
+      :src="article.thumbnail || article.thumbnailUrl"
       fluid
       alt=""
     ></b-img>

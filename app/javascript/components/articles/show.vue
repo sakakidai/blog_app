@@ -3,9 +3,9 @@
     <b-row no-gutters>
       <b-col cols="5">
         <b-card-img
-          v-show="article.thumbnail"
-          :src="article.thumbnail"
-          alt="Thumbnail"
+          v-show="article.thumbnailUrl"
+          :src="article.thumbnailUrl"
+          alt="ThumbnailUrl"
         ></b-card-img>
       </b-col>
       <b-col cols="7">
@@ -45,9 +45,9 @@ export default {
         id: '',
         title: '',
         description: '',
-        thumbnail: '',
+        thumbnailUrl: '',
       },
-      defoult_thumbnail: 'https://placekitten.com/320/180',
+      defoultThumbnail: 'https://placekitten.com/320/180',
       flashMessage: {
         type: '',
         content: '',
@@ -58,10 +58,10 @@ export default {
     axios
       .get('/api/v1/articles/' + this.$route.params.id)
       .then(response => {
-        this.article.id          = response.data.article.id
-        this.article.title       = response.data.article.title
-        this.article.description = response.data.article.description
-      this.article.thumbnail     = response.data.article.thumbnail || this.defoult_thumbnail
+        this.article.id           = response.data.article.id
+        this.article.title        = response.data.article.title
+        this.article.description  = response.data.article.description
+        this.article.thumbnailUrl = response.data.article.thumbnail_url || this.defoultThumbnail
       })
   },
   methods: {

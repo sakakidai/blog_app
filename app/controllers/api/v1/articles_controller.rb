@@ -23,11 +23,8 @@ module Api
 
       def update
         @article = Article.find(params[:id])
-        @article.attributes = article_params.slice(:title, :description)
-
-        unless @article.thumbnail_url == article_params[:thumbnail][:data]
-          @article.thumbnail.attach(article_params[:thumbnail])
-        end
+        @article.attributes = article_params
+        @article.thumbnail.attach(article_thumbnail_params) if article_thumbnail_params[:data].present?
 
         if @article.save
           render json: @article

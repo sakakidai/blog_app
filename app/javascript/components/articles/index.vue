@@ -5,7 +5,7 @@
         <b-row no-gutters>
           <b-col cols="5">
             <b-card-img
-              :src="article.thumbnail || defoult_thumbnail"
+              :src="article.thumbnail_url || defoultThumbnail"
               alt="Thumbnail"
             ></b-card-img>
           </b-col>
@@ -64,7 +64,7 @@ export default {
         current: 1,
         total: 1,
       },
-      defoult_thumbnail: 'https://placekitten.com/320/180',
+      defoultThumbnail: 'https://placekitten.com/320/180',
     }
   },
   methods: {
