@@ -6,6 +6,10 @@ module Api
         @articles = Article.with_attached_thumbnail.order(id: :desc).page(params[:page]).per(10)
       end
 
+      def edit
+        @article = Article.find(params[:id])
+      end
+
       def show
         @article = Article.find(params[:id])
       end

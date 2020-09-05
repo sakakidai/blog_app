@@ -3,6 +3,8 @@
     <div>新規作成</div>
     <ArticleForm
       :article="article"
+      @addSectionForm="addSection"
+      @removeSectionForm ="removeSection"
       @submit="create"
     ></ArticleForm>
   </div>
@@ -27,6 +29,7 @@ export default {
             id: null,
             title: '',
             description: '',
+            _destroy: null,
           }
         ],
       },
@@ -37,8 +40,18 @@ export default {
     }
   },
   methods: {
+    addSection() {
+      this.article.sections.push({
+        id: null,
+        title: '',
+        description: '',
+        _destroy: null,
+      })
+    },
+    removeSection(index) {
+      this.article.sections.splice(index, 1)
+    },
     create() {
-      console.log(this.article.sections)
       axios
         .post(
           '/api/v1/articles',

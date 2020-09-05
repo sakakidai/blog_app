@@ -50,25 +50,45 @@
 
       <div v-for="(section, index) in article.sections" :key="index">
         <h3>セクション{{ index + 1 }}</h3>
-        <b-form-group>
-          <label :for="`sections_attributes_${index}_title`">タイトル:</label>
-          <b-form-input
-            v-model.trim="section.title"
-            type="text"
-            :id="`sections_attributes_${index}_title`"
-          ></b-form-input>
-        </b-form-group>
+        <div v-if="section._destroy === '1'">
+          <div>セクション{{index + 1}}を削除します</div>
+          <b-form-group>
+            <b-button @click="unRemoveSectionForm(index)">
+              削除の取消
+            </b-button>
+          </b-form-group>
+        </div>
+        <div v-else>
+          <b-form-group>
+            <label :for="`sections_attributes_${index}_title`">タイトル:</label>
+            <b-form-input
+              v-model.trim="section.title"
+              type="text"
+              :id="`sections_attributes_${index}_title`"
+            ></b-form-input>
+          </b-form-group>
 
-        <b-form-group>
-          <label :for="`sections_attributes_${index}_description`">内容:</label>
-          <b-form-textarea
-            v-model.trim="section.description"
-            rows="5"
-            max-rows="8"
-            :id="`sections_attributes_${index}_description`"
-          ></b-form-textarea>
-        </b-form-group>
+          <b-form-group>
+            <label :for="`sections_attributes_${index}_description`">内容:</label>
+            <b-form-textarea
+              v-model.trim="section.description"
+              rows="5"
+              max-rows="8"
+              :id="`sections_attributes_${index}_description`"
+            ></b-form-textarea>
+          </b-form-group>
+
+          <b-form-group>
+            <b-button @click="removeSectionForm(index)">
+              削除
+            </b-button>
+          </b-form-group>
+        </div>
       </div>
+
+      <b-button @click="addSectionForm">
+        セクション追加
+      </b-button>
 
       <b-button
         type="submit"
@@ -110,6 +130,15 @@ export default {
         this.article.thumbnail = e.target.result
       };
       reader.readAsDataURL(file)
+    },
+    addSectionForm() {
+      this.$emit('addSectionForm')
+    },
+    removeSectionForm(index) {
+      this.$emit('removeSectionForm', index)
+    },
+    unRemoveSectionForm(index) {
+      this.$emit('unRemoveSectionForm', index)
     },
     submit() {
       this.$emit('submit')

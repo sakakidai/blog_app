@@ -1,38 +1,31 @@
 <template>
-  <b-card no-body class="overflow-hidden">
-    <b-row no-gutters>
-      <b-col cols="5">
-        <b-card-img
-          v-show="article.thumbnailUrl"
-          :src="article.thumbnailUrl"
-          alt="ThumbnailUrl"
-        ></b-card-img>
-      </b-col>
-      <b-col cols="7">
-        <b-card-body>
-          <b-card-title>
-            <b-link :to="`/articles/${article.id}`">{{ article.title }}</b-link>
-          </b-card-title>
-          <b-card-text>
-            <pre>{{article.content}}</pre>
-          </b-card-text>
+  <div>
+    <div class="article">
+      <b-img
+        v-show="article.thumbnailUrl"
+        :src="article.thumbnailUrl"
+        alt="ThumbnailUrl"
+        fluid-grow
+      ></b-img>
+      <div class="article-main-info">
+        <h3>{{ article.title }}</h3>
+        <b-link :to="'/articles/' + article.id + '/edit'">編集</b-link>
+        <b-link v-b-modal.my-modal>削除</b-link>
+        <b-card-text>
+          <pre>{{article.description}}</pre>
+        </b-card-text>
+      </div>
+    </div>
 
-          <b-card-text class="small text-muted">
-            Last updated 3 mins ago
-            <b-link :to="'/articles/' + article.id + '/edit'">編集</b-link>
-            <b-link v-b-modal.my-modal>削除</b-link>
-            <b-modal
-              id="my-modal"
-              hide-footer
-              title="削除します本当によろしいですか？"
-            >
-              <b-button class="mt-3" variant="outline-danger" block @click="destroy(article.id)">削除</b-button>
-            </b-modal>
-          </b-card-text>
-        </b-card-body>
-      </b-col>
-    </b-row>
-  </b-card>
+    <div v-for="(section, index) in article.sections" :key=index class="sections">
+      <div class="section-main-info">
+        <h3>{{ section.title }}</h3>
+        <b-card-text>
+          <pre>{{section.description}}</pre>
+        </b-card-text>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -46,6 +39,7 @@ export default {
         title: '',
         description: '',
         thumbnailUrl: '',
+        sections: [],
       },
       defoultThumbnail: 'https://placekitten.com/320/180',
       flashMessage: {
@@ -62,6 +56,7 @@ export default {
         this.article.title        = response.data.article.title
         this.article.description  = response.data.article.description
         this.article.thumbnailUrl = response.data.article.thumbnail_url || this.defoultThumbnail
+        this.article.sections     = response.data.article.sections
       })
   },
   methods: {

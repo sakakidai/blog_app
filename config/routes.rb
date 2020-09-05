@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
-      resources :articles, only: %w[index create show update destroy]
+      resources :articles, only: %w[index edit create show update destroy]
     end
   end
 
