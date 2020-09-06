@@ -1,6 +1,7 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
+      before_action :modify_params, only: %i[create update]
 
       def index
         @articles = Article.with_attached_thumbnail.order(id: :desc).page(params[:page]).per(10)
@@ -16,7 +17,6 @@ module Api
 
       def create
         @article = Article.new(article_params)
-        @article.thumbnail.attach(article_thumbnail_params) if article_thumbnail_params[:data].present?
 
         if @article.save
           render json: @article, status: :created
@@ -28,7 +28,6 @@ module Api
       def update
         @article = Article.find(params[:id])
         @article.attributes = article_params
-        @article.thumbnail.attach(article_thumbnail_params) if article_thumbnail_params[:data].present?
 
         if @article.save
           render json: @article
@@ -45,21 +44,18 @@ module Api
 
       private
 
-      def article_require_params
+      def article_params
         params.require(:article).permit(
           :title,
           :description,
           thumbnail: :data,
-          sections_attributes: [:id, :title, :description, :_destroy]
+          sections_attributes: [:id, :title, :description, :_destroy, photo: :data]
         )
       end
 
-      def article_params
-        article_require_params.except(:thumbnail)
-      end
-
-      def article_thumbnail_params
-        article_require_params[:thumbnail]
+      def modify_params
+        params[:article].delete(:thumbnail) if params[:article][:thumbnail][:data].blank?
+        params[:article][:sections_attributes].each { |section| section.delete(:photo) if section['photo']['data'].nil? }
       end
     end
   end

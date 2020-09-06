@@ -31,6 +31,8 @@ export default {
             title: '',
             description: '',
             _destroy: null,
+            photo: null,
+            photoUrl: '',
           }
         ],
       },
@@ -47,12 +49,26 @@ export default {
         title: '',
         description: '',
         _destroy: null,
+        photo: null,
+        photoUrl: '',
       })
     },
     removeSection(index) {
       this.article.sections.splice(index, 1)
     },
     create() {
+      const sections_attributes = []
+
+      this.article.sections.forEach(section => {
+        const attributes = {
+          id: section.id,
+          title: section.title,
+          description: section.description,
+          photo: { data: section.photo },
+        }
+        sections_attributes.push(attributes)
+      })
+
       axios
         .post(
           '/api/v1/articles',
@@ -61,7 +77,7 @@ export default {
               title: this.article.title,
               description: this.article.description,
               thumbnail: { data: this.article.thumbnail },
-              sections_attributes: this.article.sections
+              sections_attributes: sections_attributes
             }
           }
         )

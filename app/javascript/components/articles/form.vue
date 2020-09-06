@@ -16,7 +16,7 @@
       <b-form-group>
         <label for="article_thumbnail">サムネイル:</label>
         <b-form-file
-          @change="uploadFile"
+          @change="uploadThumbnail"
           id="article_thumbnail"
         ></b-form-file>
       </b-form-group>
@@ -59,6 +59,22 @@
           </b-form-group>
         </div>
         <div v-else>
+          <b-img
+            v-show="section.photo || section.photoUrl"
+            class="preview-item-file"
+            :src="section.photo || section.photoUrl"
+            fluid
+            alt=""
+          ></b-img>
+
+          <b-form-group>
+            <label :for="`sections_attributes_${index}_photo`">写真:</label>
+            <b-form-file
+              @change="uploadPhoto(index, $event)"
+              :id="`sections_attributes_${index}_photo`"
+            ></b-form-file>
+          </b-form-group>
+
           <b-form-group>
             <label :for="`sections_attributes_${index}_title`">タイトル:</label>
             <b-form-input
@@ -122,7 +138,15 @@ export default {
     }
   },
   methods: {
-    uploadFile(e) {
+    uploadPhoto(index, e) {
+      const file   = e.target.files[0]
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.article.sections[index].photo = e.target.result
+      };
+      reader.readAsDataURL(file)
+    },
+    uploadThumbnail(e) {
       const file   = e.target.files[0]
       const reader = new FileReader()
       reader.onload = e => {

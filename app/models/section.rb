@@ -14,6 +14,14 @@
 #  index_sections_on_article_id  (article_id)
 #
 class Section < ApplicationRecord
+  # Uploader
+  has_one_base64_attached :photo
+
   # Relations
   belongs_to :article
+
+  # convert to url when passing to the front
+  def photo_url
+    rails_blob_path(self.photo) if self.photo.attached?
+  end
 end

@@ -18,6 +18,13 @@
     </div>
 
     <div v-for="(section, index) in article.sections" :key=index class="sections">
+      <b-img
+        v-show="section.photo_url"
+        :src="section.photo_url"
+        alt="PhotoUrl"
+        fluid-grow
+      ></b-img>
+
       <div class="section-main-info">
         <h3>{{ section.title }}</h3>
         <b-card-text>
