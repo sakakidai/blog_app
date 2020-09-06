@@ -70,13 +70,7 @@ export default {
   methods: {
     destroy(id, index) {
       axios
-        .delete(
-          '/api/v1/articles/' + id,
-          { params: {
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-            },
-          },
-        )
+        .delete('/api/v1/articles/' + id)
         .then(response => {
           this.flashMessage.type = 'success'
           this.flashMessage.content = '記事を削除しました'

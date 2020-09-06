@@ -25,7 +25,7 @@ export default {
         id: '',
         title: '',
         description: '',
-        thumbnail: '',
+        thumbnail: null,
         thumbnailUrl: '',
         sections: [],
       },
@@ -78,9 +78,8 @@ export default {
               description: this.article.description,
               thumbnail: { data: this.article.thumbnail },
               sections_attributes: this.article.sections
-            },
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-          },
+            }
+          }
         )
         .then(response => {
           this.flashMessage = { type: 'success', content: '編集しました' }

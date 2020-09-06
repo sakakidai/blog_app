@@ -123,7 +123,6 @@ export default {
   },
   methods: {
     uploadFile(e) {
-      console.log('Upload')
       const file   = e.target.files[0]
       const reader = new FileReader()
       reader.onload = e => {

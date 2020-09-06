@@ -9,9 +9,6 @@
 #  updated_at  :datetime         not null
 #
 class Article < ApplicationRecord
-  include ActiveStorageSupport::SupportForBase64 # to use gem active_storage_base64
-  include Rails.application.routes.url_helpers # to use helper rails_blob_path
-
   # Uploader
   has_one_base64_attached :thumbnail
 

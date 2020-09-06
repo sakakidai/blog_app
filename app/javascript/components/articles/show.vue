@@ -62,13 +62,7 @@ export default {
   methods: {
     destroy(id) {
       axios
-        .delete(
-          '/api/v1/articles/' + id,
-          { params: {
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-            },
-          },
-        )
+        .delete('/api/v1/articles/' + id)
         .then(response => {
           console.log(response)
           this.flashMessage.type = 'success'
