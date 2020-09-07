@@ -65,6 +65,7 @@ export default {
           title: section.title,
           description: section.description,
           photo: { data: section.photo },
+          _destroy: section._destroy
         }
         sections_attributes.push(attributes)
       })

@@ -7,7 +7,7 @@ json.article do
   json.updated_at @article.updated_at
 
   json.set! :sections do
-    json.array! @article.sections do |section|
+    json.array! @article.sections.with_attached_photo do |section|
       json.id  section.id
       json.title section.title
       json.description section.description

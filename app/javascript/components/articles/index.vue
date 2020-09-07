@@ -38,6 +38,7 @@
     </div>
 
     <Pagination
+      v-if="page.total !== 0"
       :page="page"
       url='articles'
       @changePage="fetchArticles"
@@ -61,8 +62,8 @@ export default {
         content: '',
       },
       page: {
-        current: 1,
-        total: 1,
+        current: null,
+        total: null,
       },
       defoultThumbnail: 'https://placekitten.com/320/180',
     }

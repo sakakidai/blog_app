@@ -60,9 +60,9 @@
         </div>
         <div v-else>
           <b-img
-            v-show="section.photo || section.photoUrl"
+            v-show="section.photo || section.photo_url"
             class="preview-item-file"
-            :src="section.photo || section.photoUrl"
+            :src="section.photo || section.photo_url"
             fluid
             alt=""
           ></b-img>
@@ -143,6 +143,7 @@ export default {
       const reader = new FileReader()
       reader.onload = e => {
         this.article.sections[index].photo = e.target.result
+        this.$set(this.article.sections, index, this.article.sections[index])
       };
       reader.readAsDataURL(file)
     },
@@ -150,7 +151,7 @@ export default {
       const file   = e.target.files[0]
       const reader = new FileReader()
       reader.onload = e => {
-        this.article.thumbnail = e.target.result
+      this.article.thumbnail = e.target.result
       };
       reader.readAsDataURL(file)
     },

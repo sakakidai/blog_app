@@ -44,7 +44,8 @@ export default {
         this.article.description  = response.data.article.description
         this.article.thumbnailUrl = response.data.article.thumbnail_url
         this.article.sections     = response.data.article.sections
-        this.article.sections.forEach((section) => { Object.assign(section, {_destroy: null}) })
+        const mergeAttributes     = { _destroy: null, photo: null }
+        this.article.sections.forEach((section) => { Object.assign(section, mergeAttributes) })
       })
   },
   methods: {
@@ -69,6 +70,19 @@ export default {
       this.$set(this.article.sections, index, this.article.sections[index])
     },
     update() {
+      const sections_attributes = []
+
+      this.article.sections.forEach(section => {
+        const attributes = {
+          id: section.id,
+          title: section.title,
+          description: section.description,
+          photo: { data: section.photo },
+          _destroy: section._destroy
+        }
+        sections_attributes.push(attributes)
+      })
+
       axios
         .put(
           `/api/v1/articles/${this.article.id}`,
@@ -77,7 +91,7 @@ export default {
               title: this.article.title,
               description: this.article.description,
               thumbnail: { data: this.article.thumbnail },
-              sections_attributes: this.article.sections
+              sections_attributes: sections_attributes
             }
           }
         )
