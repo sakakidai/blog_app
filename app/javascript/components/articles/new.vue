@@ -28,10 +28,9 @@ export default {
           { text: 'Youtube', value: 'youtube' },
           { text: '画像', value: 'image' }
         ],
-        thumbnail: null,
-        thumbnailUrl: '',
+        image: null,
+        imageUrl: '',
         youtube: {
-          id: null,
           video_id: null,
           _destroy: null
         },
@@ -92,7 +91,7 @@ export default {
               title: this.article.title,
               description: this.article.description,
               thumbnail_type: this.article.thumbnailType,
-              thumbnail: { data: this.article.thumbnail },
+              image: { data: this.article.image },
               youtube_attributes: this.article.youtube.video_id ? youtube_attributes : {},
               sections_attributes: sections_attributes
             }

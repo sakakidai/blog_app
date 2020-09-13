@@ -25,8 +25,13 @@ export default {
         id: '',
         title: '',
         description: '',
-        thumbnail: null,
-        thumbnailUrl: '',
+        thumbnailType: '',
+        image: null,
+        imageUrl: '',
+        youtube: {
+          video_id: null,
+          _destroy: null
+        },
         sections: [],
       },
       flashMessage: {
@@ -39,12 +44,14 @@ export default {
     axios
       .get(`/api/v1/articles/${this.$route.params.id}/edit`)
       .then(response => {
-        this.article.id           = response.data.article.id
-        this.article.title        = response.data.article.title
-        this.article.description  = response.data.article.description
-        this.article.thumbnailUrl = response.data.article.thumbnail_url
-        this.article.sections     = response.data.article.sections
-        const mergeAttributes     = { _destroy: null, photo: null }
+        this.article.id               = response.data.article.id
+        this.article.title            = response.data.article.title
+        this.article.description      = response.data.article.description
+        this.article.thumbnailType    = response.data.article.thumbnail_type
+        this.article.youtube.video_id = response.data.article.youtube.video_id
+        this.article.imageUrl         = response.data.article.image_url
+        this.article.sections         = response.data.article.sections
+        const mergeAttributes         = { _destroy: null, photo: null }
         this.article.sections.forEach((section) => { Object.assign(section, mergeAttributes) })
       })
   },
@@ -70,8 +77,12 @@ export default {
       this.$set(this.article.sections, index, this.article.sections[index])
     },
     update() {
-      const sections_attributes = []
+      const youtube_attributes = {
+          video_id: this.article.youtube.video_id,
+          _destroy: this.article.youtube._destroy
+        }
 
+      const sections_attributes = []
       this.article.sections.forEach(section => {
         const attributes = {
           id: section.id,
@@ -90,7 +101,9 @@ export default {
             article: {
               title: this.article.title,
               description: this.article.description,
-              thumbnail: { data: this.article.thumbnail },
+              thumbnail_type: this.article.thumbnailType,
+              image: { data: this.article.image },
+              youtube_attributes: this.article.youtube.video_id ? youtube_attributes : {},
               sections_attributes: sections_attributes
             }
           }

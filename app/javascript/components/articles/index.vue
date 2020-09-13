@@ -14,8 +14,8 @@
               ></b-embed>
               <b-card-img
                 v-else-if="article.thumbnail_type === 'image'"
-                :src="article.thumbnail_url || defoultThumbnail"
-                alt="Thumbnail"
+                :src="article.image_url || defoultImage"
+                alt="ThumbnailImage"
               ></b-card-img>
             </div>
           </b-col>

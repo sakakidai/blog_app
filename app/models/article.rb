@@ -11,7 +11,7 @@
 #
 class Article < ApplicationRecord
   # Uploader
-  has_one_base64_attached :thumbnail
+  has_one_base64_attached :image
 
   # Relations
   has_one :youtube
@@ -28,8 +28,8 @@ class Article < ApplicationRecord
   validates :description, presence: true
 
   # convert to url when passing to the front
-  def thumbnail_url
-    rails_blob_path(self.thumbnail) if self.thumbnail.attached?
+  def image_url
+    rails_blob_path(self.image) if self.image.attached?
   end
 
   def youtube_url

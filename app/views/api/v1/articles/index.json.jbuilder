@@ -5,7 +5,7 @@ json.set! :articles do
     json.content article.description
     json.thumbnail_type article.thumbnail_type
     json.youtube_url article.youtube_url
-    json.thumbnail_url article.thumbnail_url
+    json.image_url article.image_url
     json.created_at article.created_at
     json.updated_at article.updated_at
   end

@@ -11,9 +11,9 @@
       ></b-embed>
       <b-card-img
         v-else-if="article.thumbnailType === 'image'"
-        :src="article.thumbnail || article.thumbnailUrl || defoultImage"
+        :src="article.image || article.imagelUrl || defoultImage"
         fluid
-        alt="Thumbnail"
+        alt="ThumbnailImage"
       ></b-card-img>
     </div>
 
@@ -36,15 +36,15 @@
         <b-form-input
           v-model.trim="article.youtube.video_id"
           type="text"
-          id="article_youtube_url"
+          id="article_youtube_video_id"
         ></b-form-input>
       </b-form-group>
 
       <b-form-group v-else-if="article.thumbnailType === 'image'">
         <label for="article_thumbnail">サムネイル(画像):</label>
         <b-form-file
-          @change="uploadThumbnail"
-          id="article_thumbnail"
+          @change="uploadImage"
+          id="article_image"
         ></b-form-file>
       </b-form-group>
 
@@ -167,7 +167,7 @@ export default {
   methods: {
     thumbnailFormChange(value) {
       if (value === 'image') {
-        this.article.thumbnail = null
+        this.article.image = null
       } else if (value === 'youtube') {
         this.article.youtube.video_id = null
       }
@@ -181,11 +181,11 @@ export default {
       };
       reader.readAsDataURL(file)
     },
-    uploadThumbnail(e) {
+    uploadImage(e) {
       const file   = e.target.files[0]
       const reader = new FileReader()
       reader.onload = e => {
-      this.article.thumbnail = e.target.result
+      this.article.image = e.target.result
       };
       reader.readAsDataURL(file)
     },

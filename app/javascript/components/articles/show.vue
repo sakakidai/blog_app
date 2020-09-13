@@ -10,8 +10,8 @@
       ></b-embed>
       <b-card-img
         v-else-if="article.thumbnailType === 'image'"
-        :src="article.thumbnailUrl || defoultThumbnail"
-        alt="Thumbnail"
+        :src="article.imageUrl || defoultImage"
+        alt="ThumbnailImage"
       ></b-card-img>
 
       <div class="article-main-info">
@@ -52,7 +52,8 @@ export default {
         id: '',
         title: '',
         description: '',
-        thumbnailUrl: '',
+        thumbnailType: '',
+        imageUrl: '',
         youtubeUrl: '',
         sections: [],
       },
@@ -64,13 +65,13 @@ export default {
   },
   created() {
     axios
-      .get('/api/v1/articles/' + this.$route.params.id)
+      .get(`/api/v1/articles/${this.$route.params.id}`)
       .then(response => {
         this.article.id            = response.data.article.id
         this.article.title         = response.data.article.title
         this.article.description   = response.data.article.description
         this.article.thumbnailType = response.data.article.thumbnail_type
-        this.article.thumbnailUrl  = response.data.article.thumbnail_url || this.defoultThumbnail
+        this.article.imageUrl      = response.data.article.image_url || this.defoultImage
         this.article.youtubeUrl    = response.data.article.youtube_url
         this.article.sections      = response.data.article.sections
       })
@@ -78,7 +79,7 @@ export default {
   methods: {
     destroy(id) {
       axios
-        .delete('/api/v1/articles/' + id)
+        .delete(`/api/v1/articles/${id}`)
         .then(response => {
           console.log(response)
           this.flashMessage.type = 'success'

@@ -4,7 +4,7 @@ module Api
       before_action :modify_params, only: %i[create update]
 
       def index
-        @articles = Article.with_attached_thumbnail.order(id: :desc).page(params[:page]).per(10)
+        @articles = Article.with_attached_image.order(id: :desc).page(params[:page]).per(10)
       end
 
       def edit
@@ -49,14 +49,14 @@ module Api
           :title,
           :description,
           :thumbnail_type,
-          thumbnail: :data,
+          image: :data,
           youtube_attributes: [:video_id, :_destroy],
           sections_attributes: [:id, :title, :description, :_destroy, photo: :data]
         )
       end
 
       def modify_params
-        params[:article].delete(:thumbnail) if params[:article][:thumbnail][:data].blank?
+        params[:article].delete(:image) if params[:article][:image][:data].blank?
         params[:article][:sections_attributes].each { |section| section.delete(:photo) if section['photo']['data'].nil? }
       end
     end
