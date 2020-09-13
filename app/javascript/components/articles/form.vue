@@ -1,20 +1,47 @@
 <template>
   <div>
     <h3>トップコンテンツ</h3>
-    <b-img
-      v-show="article.thumbnail || article.thumbnailUrl"
-      class="preview-item-file"
-      :src="article.thumbnail || article.thumbnailUrl"
-      fluid
-      alt=""
-    ></b-img>
+    <div class="thumbnail">
+      <b-embed
+        v-if="article.thumbnailType === 'youtube'"
+        type="iframe"
+        aspect="16by9"
+        :src="youtubeBaseUrl + article.youtube.video_id"
+        allowfullscreen
+      ></b-embed>
+      <b-card-img
+        v-else-if="article.thumbnailType === 'image'"
+        :src="article.thumbnail || article.thumbnailUrl || defoultImage"
+        fluid
+        alt="Thumbnail"
+      ></b-card-img>
+    </div>
 
     <b-form
       id="article-form"
       @submit.prevent="submit"
     >
-      <b-form-group>
-        <label for="article_thumbnail">サムネイル:</label>
+      <b-form-group label="サムネイルのタイプ:">
+        <b-form-radio-group
+          @change="thumbnailFormChange"
+          v-model="article.thumbnailType"
+          :options="article.thumbnailTypeOptions"
+          plain
+          name="plain-inline"
+        ></b-form-radio-group>
+      </b-form-group>
+
+      <b-form-group v-if="article.thumbnailType === 'youtube'">
+        <label for="article_youtube_url">サムネイル(Youtube):</label>
+        <b-form-input
+          v-model.trim="article.youtube.video_id"
+          type="text"
+          id="article_youtube_url"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group v-else-if="article.thumbnailType === 'image'">
+        <label for="article_thumbnail">サムネイル(画像):</label>
         <b-form-file
           @change="uploadThumbnail"
           id="article_thumbnail"
@@ -138,6 +165,13 @@ export default {
     }
   },
   methods: {
+    thumbnailFormChange(value) {
+      if (value === 'image') {
+        this.article.thumbnail = null
+      } else if (value === 'youtube') {
+        this.article.youtube.video_id = null
+      }
+    },
     uploadPhoto(index, e) {
       const file   = e.target.files[0]
       const reader = new FileReader()

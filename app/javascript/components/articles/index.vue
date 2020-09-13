@@ -4,10 +4,20 @@
       <b-card no-body class="overflow-hidden">
         <b-row no-gutters>
           <b-col cols="5">
-            <b-card-img
-              :src="article.thumbnail_url || defoultThumbnail"
-              alt="Thumbnail"
-            ></b-card-img>
+            <div class="thumbnail">
+              <b-embed
+                v-if="article.thumbnail_type === 'youtube'"
+                type="iframe"
+                aspect="16by9"
+                :src="article.youtube_url"
+                allowfullscreen
+              ></b-embed>
+              <b-card-img
+                v-else-if="article.thumbnail_type === 'image'"
+                :src="article.thumbnail_url || defoultThumbnail"
+                alt="Thumbnail"
+              ></b-card-img>
+            </div>
           </b-col>
           <b-col cols="7">
             <b-card-body>
@@ -64,8 +74,7 @@ export default {
       page: {
         current: null,
         total: null,
-      },
-      defoultThumbnail: 'https://placekitten.com/320/180',
+      }
     }
   },
   methods: {

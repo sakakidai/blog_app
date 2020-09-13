@@ -48,7 +48,9 @@ module Api
         params.require(:article).permit(
           :title,
           :description,
+          :thumbnail_type,
           thumbnail: :data,
+          youtube_attributes: [:video_id, :_destroy],
           sections_attributes: [:id, :title, :description, :_destroy, photo: :data]
         )
       end

@@ -1,12 +1,19 @@
 <template>
   <div>
     <div class="article">
-      <b-img
-        v-show="article.thumbnailUrl"
-        :src="article.thumbnailUrl"
-        alt="ThumbnailUrl"
-        fluid-grow
-      ></b-img>
+      <b-embed
+        v-if="article.thumbnailType === 'youtube'"
+        type="iframe"
+        aspect="16by9"
+        :src="article.youtubeUrl"
+        allowfullscreen
+      ></b-embed>
+      <b-card-img
+        v-else-if="article.thumbnailType === 'image'"
+        :src="article.thumbnailUrl || defoultThumbnail"
+        alt="Thumbnail"
+      ></b-card-img>
+
       <div class="article-main-info">
         <h3>{{ article.title }}</h3>
         <b-link :to="'/articles/' + article.id + '/edit'">編集</b-link>
@@ -46,9 +53,9 @@ export default {
         title: '',
         description: '',
         thumbnailUrl: '',
+        youtubeUrl: '',
         sections: [],
       },
-      defoultThumbnail: 'https://placekitten.com/320/180',
       flashMessage: {
         type: '',
         content: '',
@@ -59,11 +66,13 @@ export default {
     axios
       .get('/api/v1/articles/' + this.$route.params.id)
       .then(response => {
-        this.article.id           = response.data.article.id
-        this.article.title        = response.data.article.title
-        this.article.description  = response.data.article.description
-        this.article.thumbnailUrl = response.data.article.thumbnail_url || this.defoultThumbnail
-        this.article.sections     = response.data.article.sections
+        this.article.id            = response.data.article.id
+        this.article.title         = response.data.article.title
+        this.article.description   = response.data.article.description
+        this.article.thumbnailType = response.data.article.thumbnail_type
+        this.article.thumbnailUrl  = response.data.article.thumbnail_url || this.defoultThumbnail
+        this.article.youtubeUrl    = response.data.article.youtube_url
+        this.article.sections      = response.data.article.sections
       })
   },
   methods: {

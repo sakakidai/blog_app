@@ -19,6 +19,19 @@ import axios from 'axios'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
+Vue.mixin({
+  data: function() {
+    return {
+      get defoultImage() {
+        return 'https://placekitten.com/320/180'
+      },
+      get youtubeBaseUrl() {
+        return 'https://www.youtube.com/embed/'
+      }
+    }
+  }
+})
+
 document.addEventListener('DOMContentLoaded', () => {
   axios.defaults.headers.common['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].content
   axios.defaults.baseURL = 'http://localhost:3000'

@@ -31,7 +31,7 @@ export default {
       flashMessage: {
         type: '',
         content: '',
-      },
+      }
     }
   },
   methods: {

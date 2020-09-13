@@ -23,8 +23,18 @@ export default {
       article: {
         title: '',
         description: '',
+        thumbnailType: 'youtube',
+        thumbnailTypeOptions: [
+          { text: 'Youtube', value: 'youtube' },
+          { text: '画像', value: 'image' }
+        ],
         thumbnail: null,
         thumbnailUrl: '',
+        youtube: {
+          id: null,
+          video_id: null,
+          _destroy: null
+        },
         sections: [
           {
             id: null,
@@ -32,7 +42,7 @@ export default {
             description: '',
             _destroy: null,
             photo: null,
-            photoUrl: '',
+            photoUrl: ''
           }
         ],
       },
@@ -57,8 +67,12 @@ export default {
       this.article.sections.splice(index, 1)
     },
     create() {
-      const sections_attributes = []
+      const youtube_attributes = {
+          video_id: this.article.youtube.video_id,
+          _destroy: this.article.youtube._destroy
+        }
 
+      const sections_attributes = []
       this.article.sections.forEach(section => {
         const attributes = {
           id: section.id,
@@ -77,7 +91,9 @@ export default {
             article: {
               title: this.article.title,
               description: this.article.description,
+              thumbnail_type: this.article.thumbnailType,
               thumbnail: { data: this.article.thumbnail },
+              youtube_attributes: this.article.youtube.video_id ? youtube_attributes : {},
               sections_attributes: sections_attributes
             }
           }
